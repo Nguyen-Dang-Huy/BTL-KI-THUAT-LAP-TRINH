@@ -141,7 +141,7 @@ int firstMeet(int & exp1, int & exp2, int e1) {
 int traceLuggage(int & HP1, int & EXP1, int & M1, int E2) {
     // TODO: Complete this function
     int P1=100,P2=100,P3=100,P_TB;
-    while ((P1==100)and(P2==100)and(P3==100)){
+    do{
         // Con đường 01
         int a=round(sqrt(EXP1)), S;
         if (a<sqrt(EXP1)){
@@ -180,45 +180,51 @@ int traceLuggage(int & HP1, int & EXP1, int & M1, int E2) {
 
         // Con đường 02
         int sotiendadung=0, motnuasotien=round((float) (M1/2));
-        if (E2%2==1){
+        if (E2%2!=0){
             while (CheckMN(sotiendadung,motnuasotien)==false){
                 // Sự kiện 1: Mua đồ ăn
                 if (HP1<200){
                     HP1=ReHP(ceil(((float) HP1*1.3)));
                     M1=ReMN(M1-150);
+                    sotiendadung+=150;
                 }
                 else{
                     HP1=ReHP(ceil(((float) HP1*1.1)));
                     M1=ReMN(M1-70);
+                    sotiendadung+=70;
                 }
 
-                if (CheckMN(M1,motnuasotien))
+                if (CheckMN(sotiendadung,motnuasotien))
                     break;
                 
                 // Sự kiện 2: Thuê xe
                 if (EXP1<400){
                     M1=ReMN(M1-200);
                     EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                    sotiendadung+=200;
                 }
                 else{
                     M1=ReMN(M1-120);
                     EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                    sotiendadung+=120;
                 }
 
-                if (CheckMN(M1,motnuasotien))
+                if (CheckMN(sotiendadung,motnuasotien))
                     break;
                 
                 // Sự kiện 3: Tìm người hỏi đường
                 if (EXP1<300){
                     M1=ReMN(M1-100);
                     EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                    sotiendadung+=100;
                 }
                 else{
                     M1=ReMN(M1-120);
                     EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                    sotiendadung+=120;
                 }
 
-                if (CheckMN(M1,motnuasotien))
+                if (CheckMN(sotiendadung,motnuasotien))
                     break;
 
             }
@@ -292,7 +298,10 @@ int traceLuggage(int & HP1, int & EXP1, int & M1, int E2) {
             P2=100;
         else    
             P2=round(((float) ((((float) EXP1/S1)+80)*100)/123));
-    }
+    
+        if ((P1==100)and(P2==100)and(P3==100))
+            EXP1= ReEXP(ceil((float) (EXP1*0.75)));
+    }while ((P1==100)and(P2==100)and(P3==100));
     
     P_TB=round((float) ((P1+P2+P3)/3));
     if (P_TB<50){

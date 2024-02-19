@@ -21,13 +21,16 @@ void sa_tc_01() {
         return;
     }
 
-    cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", E1: " << E1 << endl;
-    int result = firstMeet(EXP1, EXP2, E1);
-    cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", result: " << result << endl;
+    //cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", E1: " << E1 << endl;
+    //int result1 = firstMeet(EXP1, EXP2, E1);
+    //cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", result: " << result1 << endl;
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", E2: " << E2 << endl;
+    int result2 = traceLuggage(HP1, EXP1, M1, E2);
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", result: " << result2 << endl;
 }
+
 
 int main(int argc, const char * argv[]) {
     sa_tc_01();
-
     return 0;
 }
