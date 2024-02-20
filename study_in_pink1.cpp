@@ -315,10 +315,135 @@ int traceLuggage(int & HP1, int & EXP1, int & M1, int E2) {
     return HP1 + EXP1 + M1;
 }
 
+// Function find i,j
+int Fij(int h){
+    if (h<10)
+        return h;
+    else
+        return Fij(h/10+h%10);
+}
+
 // Task 3
 int chaseTaxi(int & HP1, int & EXP1, int & HP2, int & EXP2, int E3) {
     // TODO: Complete this function
+
+    //Khởi tạo giá trị các phần tử của mảng
+    int arr[10][10];
+    for (int i=0;i<10;i++){
+        for (int j=0; j<10; j++){
+            arr[i][j]=((E3*j)+(i*2))*(i-j);
+        }
+    }
     
+    // Tìm tọa độ gặp nhau (a,b)
+    int a=0,b=0;
+    for (int i=0;i<10;i++){
+        for (int j=0; j<10; j++){
+            if (arr[i][j]>0 and arr[i][j]>(E3*2))
+                a+=1;
+            if (arr[i][j]<0 and arr[i][j]<(-E3))
+                b+=1;
+        }
+    }
+
+    a=Fij(a);
+    b=Fij(b);
+    //Khởi tạo mảng chứa các phần tử nằm trên đường chéo chính và phụ tại điểm gặp
+    int vt=-1, mang[30]={};
+    for (int i=0;i<10;i++){
+        for (int j=0; j<10; j++){
+            if ((i+j)==(a+b)){
+                vt +=1;
+                mang[vt] = arr[i][j]; 
+            }
+            if (abs(i-9)+j==abs(a-9)+b){
+                vt +=1;
+                mang[vt] = arr[i][j]; 
+            }
+        }
+    }
+    int max1=mang[0];
+    for (int p=0;p<20;p++){
+        if (mang[p]>max1)
+            max1=mang[p];
+    }
+
+    // Trả về kết quả
+    int kq=0;
+    if(abs(arr[a][b])>max1){
+        EXP1=ReEXP(ceil((float) EXP1*0.88));
+        HP1=ReHP(ceil((float) HP1*0.9));
+        EXP2=ReEXP(ceil((float) EXP2*0.88));
+        HP2=ReHP(ceil((float) HP2*0.9));
+        kq = arr[a][b];
+    }
+    else{
+        EXP1=ReEXP(ceil((float) EXP1*1.12));
+        HP1=ReHP(ceil((float) HP1*1.1));
+        EXP2=ReEXP(ceil((float) EXP2*1.12));
+        HP2=ReHP(ceil((float) HP2*1.1));
+        kq = max1;
+    }
+
+    return kq;
+}
+
+bool CheckSC(string str){
+    for (int i=0;i<str.length();i++){
+        if ( (str[i]==64) or (str[i]==35) or (str[i]==37) or (str[i]==36) or (str[i]==33) )
+            return true;
+    }
+    return false;
+}
+
+// Function Check Consecutive Characters
+bool CheckCC(string str){
+    for (int i=0;i<str.length()-2;i++){
+        if ( (str[i]==str[i+1]) and (str[i+1]==str[i+2]) )
+            return false;
+    }
+    return true;
+}
+
+// Function Canculate Same location
+int CanSL(string str){
+    int vt=0;
+    for (int i=0;i<str.length()-2;i++){
+        if ( (str[i]==str[i+1]) and (str[i+1]==str[i+2]) ){
+            vt=i;
+            break;
+        }
+    }
+    return vt;
+}
+
+// Function Canculate Substring
+int CanSubStr(string str, string substr){
+    for (int i = 0; i < str.length(); i++) {
+        if (str[i] == substr[0]) {
+            int count = 0;
+            for (int j = 0; j < substr.length(); j++) {
+                if (str[j + i] == substr[j])
+                    count += 1;
+                else
+                    break;
+            }
+            if (count == substr.length()) 
+                return i;
+        }
+    }
+    return 0;
+}
+
+// Canculate Check Alpha Num;
+int CanAN(string str){
+    int k;
+    for (int i=0;i<str.length();i++){
+        if ( (str[i]==64) or (str[i]==35) or (str[i]==37) or (str[i]==36) or (str[i]==33) or ( str[i]>=48 and str[i]<=57 ) or (str[i]>=65 and str[i]<=90) or (str[i]>=97 and str[i]<=122) )
+            k=i;
+        else
+            return i;
+    }
     return -1;
 }
 
@@ -326,13 +451,43 @@ int chaseTaxi(int & HP1, int & EXP1, int & HP2, int & EXP2, int E3) {
 int checkPassword(const char * s, const char * email) {
     // TODO: Complete this function
 
-    return -99;
+    // C-style Strings convert to string 
+    string emails= string(email);
+    string ss=string(s);
+
+    // Tìm se
+    string se;
+    int vt;
+    for (int i=0;i<emails.length();i++){
+        if (emails[i]==64){
+            vt=i;
+            break;
+        }
+    }
+
+    se=emails.substr(0,vt);
+
+    // Các trả về
+    if (ss.length()<8)
+        return -1;
+    else if (ss.length()>20)
+        return -2;
+    else if (CheckSC(ss)==false)
+        return -5;
+    else if (CheckCC(ss)==false)
+        return -(400+CanSL(s));
+    else if (CanSubStr(ss,se)!=0)
+        return -(300+CanSubStr(ss,se));
+    else if (CanAN(ss)!=-1)
+        return CanAN(ss);
+    else 
+        return -10;
 }
 
 // Task 5
 int findCorrectPassword(const char * arr_pwds[], int num_pwds) {
     // TODO: Complete this function
-
+    
     return -1;
 }
 

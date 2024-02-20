@@ -24,9 +24,16 @@ void sa_tc_01() {
     //cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", E1: " << E1 << endl;
     //int result1 = firstMeet(EXP1, EXP2, E1);
     //cout << "EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", result: " << result1 << endl;
-    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", E2: " << E2 << endl;
-    int result2 = traceLuggage(HP1, EXP1, M1, E2);
-    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", result: " << result2 << endl;
+
+    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", E2: " << E2 << endl;
+    // int result2 = traceLuggage(HP1, EXP1, M1, E2);
+    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", result: " << result2 << endl;
+
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
+    int result3 = chaseTaxi(HP1, EXP1, HP2, EXP2, E3);
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2  << ", HP2: " << HP2 << ", result: " << result3 << endl;
+
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
 }
 
 
