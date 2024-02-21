@@ -140,179 +140,183 @@ int firstMeet(int & exp1, int & exp2, int e1) {
 // Task 2
 int traceLuggage(int & HP1, int & EXP1, int & M1, int E2) {
     // TODO: Complete this function
-    int P1=100,P2=100,P3=100,P_TB;
-    do{
-        // Con đường 01
-        int a=round(sqrt(EXP1)), S;
-        if (a<sqrt(EXP1)){
-            if ( abs((EXP1-a*a)) <= abs(((a+1)*(a+1)-EXP1)) )
-                S = a*a;
-            else
-                S = (a+1)*(a+1);
-        }
-        else{
-            if ( abs(EXP1-a*a) <= abs(EXP1-(a-1)*(a-1)) )
-                S = a*a;
-            else
-                S = (a-1)*(a-1);
-        }
-        if (EXP1>=S)
-            P1=100;
-        else    
-            P1=round(((float) ((((float) EXP1/S)+80)*100)/123));
-
-        // Con đường 03
-        int arr[10]={32,47,28,79,100,50,22,83,64,11};
-        if ((E2<0) or (E2>99))
-            return -99;
-        else{
-            if (E2<10)
-                P3=arr[E2];
-            else{
-                int temp;
-                temp = E2/10 + E2%10;
-                if (temp<10)
-                    P3=arr[temp];
-                else
-                    P3=arr[temp%10];
-            }
-        }
-
-        // Con đường 02
-        int sotiendadung=0, motnuasotien=round((float) (M1/2));
-        if (E2%2!=0){
-            while (CheckMN(sotiendadung,motnuasotien)==false){
-                // Sự kiện 1: Mua đồ ăn
-                if (HP1<200){
-                    HP1=ReHP(ceil(((float) HP1*1.3)));
-                    M1=ReMN(M1-150);
-                    sotiendadung+=150;
-                }
-                else{
-                    HP1=ReHP(ceil(((float) HP1*1.1)));
-                    M1=ReMN(M1-70);
-                    sotiendadung+=70;
-                }
-
-                if (CheckMN(sotiendadung,motnuasotien))
-                    break;
-                
-                // Sự kiện 2: Thuê xe
-                if (EXP1<400){
-                    M1=ReMN(M1-200);
-                    EXP1=ReEXP(ceil((float) (EXP1*1.13)));
-                    sotiendadung+=200;
-                }
-                else{
-                    M1=ReMN(M1-120);
-                    EXP1=ReEXP(ceil((float) (EXP1*1.13)));
-                    sotiendadung+=120;
-                }
-
-                if (CheckMN(sotiendadung,motnuasotien))
-                    break;
-                
-                // Sự kiện 3: Tìm người hỏi đường
-                if (EXP1<300){
-                    M1=ReMN(M1-100);
-                    EXP1=ReEXP(ceil((float) (EXP1*0.9)));
-                    sotiendadung+=100;
-                }
-                else{
-                    M1=ReMN(M1-120);
-                    EXP1=ReEXP(ceil((float) (EXP1*0.9)));
-                    sotiendadung+=120;
-                }
-
-                if (CheckMN(sotiendadung,motnuasotien))
-                    break;
-
-            }
-
-            HP1=ReHP(ceil((float) (HP1*0.83)));
-            EXP1=ReEXP(ceil((float) (EXP1*1.17)));
-        }
-        else{
-            int dem=0;
-            while (dem<3){
-                // Sự kiện 1: Mua đồ ăn
-                if (HP1<200){
-                    HP1=ReHP(ceil(((float) HP1*1.3)));
-                    M1=ReMN(M1-150);
-                }
-                else{
-                    HP1=ReHP(ceil(((float) HP1*1.1)));
-                    M1=ReMN(M1-70);
-                }
-
-                if (M1==0)
-                    break;
-                dem+=1;
-                
-                // Sự kiện 2: Thuê xe
-                if (EXP1<400){
-                    M1=ReMN(M1-200);
-                    EXP1=ReEXP(ceil((float) (EXP1*1.13)));
-                }
-                else{
-                    M1=ReMN(M1-120);
-                    EXP1=ReEXP(ceil((float) (EXP1*1.13)));
-                }
-
-                if (M1==0)
-                    break;
-                dem+=1;
-                
-                // Sự kiện 3: Tìm người hỏi đường
-                if (EXP1<300){
-                    M1=ReMN(M1-100);
-                    EXP1=ReEXP(ceil((float) (EXP1*0.9)));
-                }
-                else{
-                    M1=ReMN(M1-120);
-                    EXP1=ReEXP(ceil((float) (EXP1*0.9)));
-                }
-
-                if (M1==0)
-                    break;
-                dem+=1;
-            }
-            HP1=ReHP(ceil((float) (HP1*0.83)));
-            EXP1=ReEXP(ceil((float) (EXP1*1.17)));
-        }
-        int b=round(sqrt(EXP1)), S1;
-        if (b<sqrt(EXP1)){
-            if ( abs((EXP1-b*b)) <= abs(((b+1)*(b+1)-EXP1)) )
-                S1 = b*b;
-            else
-                S1 = (b+1)*(b+1);
-        }
-        else{
-            if ( abs(EXP1-b*b) <= abs(EXP1-(b-1)*(b-1)) )
-                S1 = b*b;
-            else
-                S1 = (b-1)*(b-1);
-        }
-
-        if (EXP1>=S1)
-            P2=100;
-        else    
-            P2=round(((float) ((((float) EXP1/S1)+80)*100)/123));
-    
-        if ((P1==100)and(P2==100)and(P3==100))
-            EXP1= ReEXP(ceil((float) (EXP1*0.75)));
-    }while ((P1==100)and(P2==100)and(P3==100));
-    
-    P_TB=round((float) ((P1+P2+P3)/3));
-    if (P_TB<50){
-        HP1=ReHP(ceil((float) (HP1*0.85)));
-        EXP1=ReEXP(ceil((float) (EXP1*1.15)));
-    }
+    if ((E2<0) or (E2>99))
+        return -99;
     else{
-        HP1=ReHP(ceil((float) (HP1*0.9)));
-        EXP1=ReEXP(ceil((float) (EXP1*1.2)));
+        int P1=100,P2=100,P3=100,P_TB;
+        do{
+            // Con đường 01
+            int a=round(sqrt(EXP1)), S;
+            if (a<sqrt(EXP1)){
+                if ( abs((EXP1-a*a)) <= abs(((a+1)*(a+1)-EXP1)) )
+                    S = a*a;
+                else
+                    S = (a+1)*(a+1);
+            }
+            else{
+                if ( abs(EXP1-a*a) <= abs(EXP1-(a-1)*(a-1)) )
+                    S = a*a;
+                else
+                    S = (a-1)*(a-1);
+            }
+            if (EXP1>=S)
+                P1=100;
+            else    
+                P1=round(((float) ((((float) EXP1/S)+80)*100)/123));
+
+            // Con đường 03
+            int arr[10]={32,47,28,79,100,50,22,83,64,11};
+            if ((E2<0) or (E2>99))
+                return -99;
+            else{
+                if (E2<10)
+                    P3=arr[E2];
+                else{
+                    int temp;
+                    temp = E2/10 + E2%10;
+                    if (temp<10)
+                        P3=arr[temp];
+                    else
+                        P3=arr[temp%10];
+                }
+            }
+
+            // Con đường 02
+            int sotiendadung=0, motnuasotien=round((float) (M1/2));
+            if (E2%2!=0){
+                while (CheckMN(sotiendadung,motnuasotien)==false){
+                    // Sự kiện 1: Mua đồ ăn
+                    if (HP1<200){
+                        HP1=ReHP(ceil(((float) HP1*1.3)));
+                        M1=ReMN(M1-150);
+                        sotiendadung+=150;
+                    }
+                    else{
+                        HP1=ReHP(ceil(((float) HP1*1.1)));
+                        M1=ReMN(M1-70);
+                        sotiendadung+=70;
+                    }
+
+                    if (CheckMN(sotiendadung,motnuasotien))
+                        break;
+                    
+                    // Sự kiện 2: Thuê xe
+                    if (EXP1<400){
+                        M1=ReMN(M1-200);
+                        EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                        sotiendadung+=200;
+                    }
+                    else{
+                        M1=ReMN(M1-120);
+                        EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                        sotiendadung+=120;
+                    }
+
+                    if (CheckMN(sotiendadung,motnuasotien))
+                        break;
+                    
+                    // Sự kiện 3: Tìm người hỏi đường
+                    if (EXP1<300){
+                        M1=ReMN(M1-100);
+                        EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                        sotiendadung+=100;
+                    }
+                    else{
+                        M1=ReMN(M1-120);
+                        EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                        sotiendadung+=120;
+                    }
+
+                    if (CheckMN(sotiendadung,motnuasotien))
+                        break;
+
+                }
+
+                HP1=ReHP(ceil((float) (HP1*0.83)));
+                EXP1=ReEXP(ceil((float) (EXP1*1.17)));
+            }
+            else{
+                int dem=0;
+                while (dem<3){
+                    // Sự kiện 1: Mua đồ ăn
+                    if (HP1<200){
+                        HP1=ReHP(ceil(((float) HP1*1.3)));
+                        M1=ReMN(M1-150);
+                    }
+                    else{
+                        HP1=ReHP(ceil(((float) HP1*1.1)));
+                        M1=ReMN(M1-70);
+                    }
+
+                    if (M1==0)
+                        break;
+                    dem+=1;
+                    
+                    // Sự kiện 2: Thuê xe
+                    if (EXP1<400){
+                        M1=ReMN(M1-200);
+                        EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                    }
+                    else{
+                        M1=ReMN(M1-120);
+                        EXP1=ReEXP(ceil((float) (EXP1*1.13)));
+                    }
+
+                    if (M1==0)
+                        break;
+                    dem+=1;
+                    
+                    // Sự kiện 3: Tìm người hỏi đường
+                    if (EXP1<300){
+                        M1=ReMN(M1-100);
+                        EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                    }
+                    else{
+                        M1=ReMN(M1-120);
+                        EXP1=ReEXP(ceil((float) (EXP1*0.9)));
+                    }
+
+                    if (M1==0)
+                        break;
+                    dem+=1;
+                }
+                HP1=ReHP(ceil((float) (HP1*0.83)));
+                EXP1=ReEXP(ceil((float) (EXP1*1.17)));
+            }
+            int b=round(sqrt(EXP1)), S1;
+            if (b<sqrt(EXP1)){
+                if ( abs((EXP1-b*b)) <= abs(((b+1)*(b+1)-EXP1)) )
+                    S1 = b*b;
+                else
+                    S1 = (b+1)*(b+1);
+            }
+            else{
+                if ( abs(EXP1-b*b) <= abs(EXP1-(b-1)*(b-1)) )
+                    S1 = b*b;
+                else
+                    S1 = (b-1)*(b-1);
+            }
+
+            if (EXP1>=S1)
+                P2=100;
+            else    
+                P2=round(((float) ((((float) EXP1/S1)+80)*100)/123));
+        
+            if ((P1==100)and(P2==100)and(P3==100))
+                EXP1= ReEXP(ceil((float) (EXP1*0.75)));
+        }while ((P1==100)and(P2==100)and(P3==100));
+        
+        P_TB=round((float) ((P1+P2+P3)/3));
+        if (P_TB<50){
+            HP1=ReHP(ceil((float) (HP1*0.85)));
+            EXP1=ReEXP(ceil((float) (EXP1*1.15)));
+        }
+        else{
+            HP1=ReHP(ceil((float) (HP1*0.9)));
+            EXP1=ReEXP(ceil((float) (EXP1*1.2)));
+        }
+        return HP1 + EXP1 + M1;
     }
-    return HP1 + EXP1 + M1;
 }
 
 // Function find i,j
@@ -327,67 +331,70 @@ int Fij(int h){
 int chaseTaxi(int & HP1, int & EXP1, int & HP2, int & EXP2, int E3) {
     // TODO: Complete this function
 
-    //Khởi tạo giá trị các phần tử của mảng
-    int arr[10][10];
-    for (int i=0;i<10;i++){
-        for (int j=0; j<10; j++){
-            arr[i][j]=((E3*j)+(i*2))*(i-j);
-        }
-    }
-    
-    // Tìm tọa độ gặp nhau (a,b)
-    int a=0,b=0;
-    for (int i=0;i<10;i++){
-        for (int j=0; j<10; j++){
-            if (arr[i][j]>0 and arr[i][j]>(E3*2))
-                a+=1;
-            if (arr[i][j]<0 and arr[i][j]<(-E3))
-                b+=1;
-        }
-    }
-
-    a=Fij(a);
-    b=Fij(b);
-    //Khởi tạo mảng chứa các phần tử nằm trên đường chéo chính và phụ tại điểm gặp
-    int vt=-1, mang[30]={};
-    for (int i=0;i<10;i++){
-        for (int j=0; j<10; j++){
-            if ((i+j)==(a+b)){
-                vt +=1;
-                mang[vt] = arr[i][j]; 
-            }
-            if (abs(i-9)+j==abs(a-9)+b){
-                vt +=1;
-                mang[vt] = arr[i][j]; 
+    if ((E3<0) or (E3>99))
+        return -99;
+    else {
+        //Khởi tạo giá trị các phần tử của mảng
+        int arr[10][10];
+        for (int i=0;i<10;i++){
+            for (int j=0; j<10; j++){
+                arr[i][j]=((E3*j)+(i*2))*(i-j);
             }
         }
-    }
-    int max1=mang[0];
-    for (int p=0;p<20;p++){
-        if (mang[p]>max1)
-            max1=mang[p];
-    }
+        
+        // Tìm tọa độ gặp nhau (a,b)
+        int a=0,b=0;
+        for (int i=0;i<10;i++){
+            for (int j=0; j<10; j++){
+                if (arr[i][j]>0 and arr[i][j]>(E3*2))
+                    a+=1;
+                if (arr[i][j]<0 and arr[i][j]<(-E3))
+                    b+=1;
+            }
+        }
 
-    // Trả về kết quả
-    int kq=0;
-    if(abs(arr[a][b])>max1){
-        EXP1=ReEXP(ceil((float) EXP1*0.88));
-        HP1=ReHP(ceil((float) HP1*0.9));
-        EXP2=ReEXP(ceil((float) EXP2*0.88));
-        HP2=ReHP(ceil((float) HP2*0.9));
-        kq = arr[a][b];
-    }
-    else{
-        EXP1=ReEXP(ceil((float) EXP1*1.12));
-        HP1=ReHP(ceil((float) HP1*1.1));
-        EXP2=ReEXP(ceil((float) EXP2*1.12));
-        HP2=ReHP(ceil((float) HP2*1.1));
-        kq = max1;
-    }
+        a=Fij(a);
+        b=Fij(b);
+        //Khởi tạo mảng chứa các phần tử nằm trên đường chéo chính và phụ tại điểm gặp
+        int vt=-1, mang[30]={};
+        for (int i=0;i<10;i++){
+            for (int j=0; j<10; j++){
+                if ((i+j)==(a+b)){
+                    vt +=1;
+                    mang[vt] = arr[i][j]; 
+                }
+                if (abs(i-9)+j==abs(a-9)+b){
+                    vt +=1;
+                    mang[vt] = arr[i][j]; 
+                }
+            }
+        }
+        int max1=mang[0];
+        for (int p=0;p<20;p++){
+            if (mang[p]>max1)
+                max1=mang[p];
+        }
 
-    return kq;
+        // Trả về kết quả
+        int kq=0;
+        if(abs(arr[a][b])>max1){
+            EXP1=ReEXP(ceil((float) EXP1*0.88));
+            HP1=ReHP(ceil((float) HP1*0.9));
+            EXP2=ReEXP(ceil((float) EXP2*0.88));
+            HP2=ReHP(ceil((float) HP2*0.9));
+            kq = arr[a][b];
+        }
+        else{
+            EXP1=ReEXP(ceil((float) EXP1*1.12));
+            HP1=ReHP(ceil((float) HP1*1.1));
+            EXP2=ReEXP(ceil((float) EXP2*1.12));
+            HP2=ReHP(ceil((float) HP2*1.1));
+            kq = max1;
+        }
+
+        return kq;
+    }
 }
-
 bool CheckSC(string str){
     for (int i=0;i<str.length();i++){
         if ( (str[i]==64) or (str[i]==35) or (str[i]==37) or (str[i]==36) or (str[i]==33) )

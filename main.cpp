@@ -29,9 +29,9 @@ void sa_tc_01() {
     // int result2 = traceLuggage(HP1, EXP1, M1, E2);
     // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", result: " << result2 << endl;
 
-    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
-    // int result3 = chaseTaxi(HP1, EXP1, HP2, EXP2, E3);
-    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2  << ", HP2: " << HP2 << ", result: " << result3 << endl;
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
+    int result3 = chaseTaxi(HP1, EXP1, HP2, EXP2, E3);
+    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2  << ", HP2: " << HP2 << ", result: " << result3 << endl;
 
     // int result4=checkPassword("123xyz","pink@gmail.com");
     // cout << "result: "<<result4;
