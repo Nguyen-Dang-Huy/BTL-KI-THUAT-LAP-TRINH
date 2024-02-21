@@ -484,10 +484,101 @@ int checkPassword(const char * s, const char * email) {
         return -10;
 }
 
+// Function Count String Length
+int CountSL(string str){
+    int i = 0;
+   // '\0' la ky tu NULL ket thuc cua mot chuoi
+   while(str[i] != '\0') {
+      i++;
+   }
+   return i;
+}
+
+// Function Check Duplicate Element
+bool CheckDE(string str1,string str2){
+    if(CountSL(str1) != CountSL(str2))
+        return false;
+    else{
+        for (int i=0;i<CountSL(str1);i++){
+            if (str1[i]!=str2[i])
+                return false;
+        }
+        return true;
+    }
+}
+
 // Task 5
 int findCorrectPassword(const char * arr_pwds[], int num_pwds) {
     // TODO: Complete this function
+    // Tạo mảng chứa các phần tử không trùng nhau
+    string arr[num_pwds]={};
+    arr[0]=arr_pwds[0];
+    int count=1;
+    int vt=0;
+    while (count <num_pwds){
+        bool check=false;
+        for (int i=0;i<count;i++){
+            if (CheckDE(arr_pwds[count],arr[i])==true){
+                check=true;
+                break;
+            }
+        }
+        if (check==false){
+            vt+=1;
+            arr[vt]=arr_pwds[count];
+        }
+        count +=1;
+    }
+
+    // Đếm số lần xuất hiện của các phần tử không trùng nhau đó
+    int pt[count]={};
+    for (int i=0;i<vt+1;i++){
+        for (int j=0;j<num_pwds;j++){
+            if (CheckDE(arr[i],arr_pwds[j])==true)
+                pt[i]+=1;
+        }
+    }
     
+    // Tìm tần suất xuất hiện nhiều nhất
+    int max_pt=pt[0], index=0;
+    for (int  i = 0; i < vt+1; i++){
+        if (max_pt<pt[i]){
+                max_pt=pt[i];
+        }
+    }
+
+    // Tạp mảng chứa các phần tử có tần suất xuất hiện nhiều nhất
+    int count1=-1;
+    string arr_longest[vt+1]={};
+    for (int  i = 0; i < vt+1; i++){
+        if (max_pt==pt[i]){
+                count1+=1;
+                arr_longest[count1]=arr[i];
+        }
+    }
+
+    // Tính chiều dài của các phần tử có tần suất xuất hiện nhiều nhất
+    int Long_of_arr_longest[count1+1]={};
+    for (int i=0;i<count1+1;i++){
+        Long_of_arr_longest[i]=CountSL(arr_longest[i]);
+    }
+
+    // Tìm phần tử dài nhất trong các phần tử đã lọc
+    int len_max=Long_of_arr_longest[0];
+    string str=arr_longest[0];
+    for (int i=0;i<count1+1;i++){
+        if (Long_of_arr_longest[i]>len_max){
+            len_max=Long_of_arr_longest[i];
+            str=arr_longest[i];
+        }
+    }
+
+    // Tìm vị trí đầu tiên của phần tử dài nhất (và có tần suất nhiều nhất) trong mảng chính
+    for (int i=0; i<num_pwds;i++){
+        if (CheckDE(arr_pwds[i],str)==true){
+            return i;
+        }
+    }
     return -1;
 }
 

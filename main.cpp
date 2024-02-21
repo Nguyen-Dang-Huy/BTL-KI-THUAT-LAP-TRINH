@@ -29,11 +29,17 @@ void sa_tc_01() {
     // int result2 = traceLuggage(HP1, EXP1, M1, E2);
     // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", M1: " << M1 << ", result: " << result2 << endl;
 
-    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
-    int result3 = chaseTaxi(HP1, EXP1, HP2, EXP2, E3);
-    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2  << ", HP2: " << HP2 << ", result: " << result3 << endl;
+    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
+    // int result3 = chaseTaxi(HP1, EXP1, HP2, EXP2, E3);
+    // cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2  << ", HP2: " << HP2 << ", result: " << result3 << endl;
 
-    cout << "HP1: " << HP1 << ", EXP1: " << EXP1 << ", EXP2: " << EXP2 << ", HP2: " << HP2 << ", E3: " << E3 << endl;
+    // int result4=checkPassword("123xyz","pink@gmail.com");
+    // cout << "result: "<<result4;
+
+    // string arr_pwds[] = {"123xyz", "pink#pink", "pink123", "xxxx@xxxx", "pink#pink", "pink123", "pink123"};
+    // // string arr_pwds[]={"pink123", "xxxx@xxxx", "123xyz", "pink#pink", "pink#pink","pink123"};
+    // int num_pwds=7;
+    // int result5=findCorrectPassword(arr_pwds[]= {"123xyz", "pink#pink", "pink123", "xxxx@xxxx", "pink#pink", "pink123", "pink123"},num_pwds)
 }
 
 
