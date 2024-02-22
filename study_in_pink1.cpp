@@ -479,12 +479,12 @@ int checkPassword(const char * s, const char * email) {
         return -1;
     else if (ss.length()>20)
         return -2;
-    else if (CheckSC(ss)==false)
-        return -5;
-    else if (CheckCC(ss)==false)
-        return -(400+CanSL(s));
     else if (CanSubStr(ss,se)!=0)
         return -(300+CanSubStr(ss,se));
+    else if  (CheckCC(ss)==false)
+        return -(400+CanSL(s));
+    else if (CheckSC(ss)==false)
+        return -5;
     else if (CanAN(ss)!=-1)
         return CanAN(ss);
     else 
